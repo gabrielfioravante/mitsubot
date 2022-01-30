@@ -7,7 +7,7 @@ import os
 load_dotenv(find_dotenv())
 
 bot = commands.Bot(command_prefix=commands.when_mentioned_or("!"),
-                   description='Um bot que toca áudios aletórios')
+                   description='Um bot que toca áudios aleatórios')
 @bot.event
 async def on_ready():
     print('Logged in as {0} ({0.id})'.format(bot.user))
