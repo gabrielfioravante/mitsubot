@@ -1,5 +1,5 @@
 # Mitsubot
-A basic Discord bot that plays random audios every 20 minutes. It reads files from the `audio` folder and then plays them randonly.
+A basic Discord bot that plays random audios every 20 minutes. It reads audio files from the `audio` folder and then plays them randomly.
 
 ## Built with
 - [Discord.py](https://discordpy.readthedocs.io/en/stable/)
