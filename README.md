@@ -10,6 +10,7 @@ In order to work with the Discord API and make the bot play audio, you will need
 - [Discord Bot account](https://discordpy.readthedocs.io/en/stable/discord.html)
 
 ```sh
+# Python setup
 python3 -m pip install -U discord.py[voice] python-dotenv # Unix
 py -3 -m pip install -U discord.py[voice] python-dotenv # Windows
 ```
