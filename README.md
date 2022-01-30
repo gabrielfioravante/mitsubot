@@ -14,3 +14,12 @@ python3 -m pip install -U discord.py[voice] python-dotenv # Unix
 py -3 -m pip install -U discord.py[voice] python-dotenv # Windows
 ```
 You can also setup a [virtual environment](https://discordpy.readthedocs.io/en/stable/intro.html#virtual-environments)
+
+## Default bot commands
+You must be connected to a voice channel to run the commands:
+- `!start`
+- `!stop`
+
+## Todo
+- [ ] Custom timer support
+- [ ] Custom prefix support
