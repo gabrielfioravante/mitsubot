@@ -3,10 +3,10 @@ from discord.ext import commands
 from dotenv import load_dotenv, find_dotenv
 import os, discord
 
-intents = discord.Intents.default()
-intents.members = True
 load_dotenv(find_dotenv())
 
+intents = discord.Intents.default()
+intents.members = True
 bot = commands.Bot(command_prefix=commands.when_mentioned_or("!"),
                    description='Um bot que toca áudios aleatórios', intents = intents)
 @bot.event
