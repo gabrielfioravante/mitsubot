@@ -19,7 +19,7 @@ class commandInstance:
 
         return selected_audio
 
-    @tasks.loop(seconds=0.0, minutes=20.0)
+    @tasks.loop(minutes= 20.0)
     async def play(self):
         audio_file = self.__select_audio()
         source = discord.PCMVolumeTransformer(discord.FFmpegPCMAudio('./audio/' + audio_file))            
@@ -30,6 +30,9 @@ class commandInstance:
            while self.ctx.voice_client.is_playing():
              sleep(1)
            await self.ctx.voice_client.disconnect()
+
+    def custom_timer(self, custom_timer: float):
+        self.play.change_interval(minutes=custom_timer)
 
     async def cog_unload(self, custom_message):
         if custom_message:
@@ -55,11 +58,14 @@ class randomAudioPlayer(commands.Cog):
                     await self.remove_instance(before.channel.id, 'Não há ninguém no canal. Vou descansar ;)')
 
     @commands.command()
-    async def start(self, ctx):
+    async def start(self, ctx, custom_timer: float=20.0):
            if ctx.author.voice:
                channel_id = ctx.author.voice.channel.id
                if not any(i.channel_id == channel_id for i in self.instances):
                    new_instance = commandInstance(channel_id, ctx)
+                   if custom_timer != 20.0:
+                       new_instance.custom_timer(custom_timer)
+
                    self.instances.append(new_instance)   
                else:
                 await ctx.send("Eu já fui iniciado, amigão")
