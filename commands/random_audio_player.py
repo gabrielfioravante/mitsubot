@@ -31,8 +31,8 @@ class commandInstance:
              sleep(1)
            await self.ctx.voice_client.disconnect()
 
-    def custom_timer(self, custom_timer: float):
-        self.play.change_interval(minutes=custom_timer)
+    def custom_interval(self, custom_interval: float):
+        self.play.change_interval(minutes=custom_interval)
 
     async def cog_unload(self, custom_message):
         if custom_message:
@@ -58,13 +58,13 @@ class randomAudioPlayer(commands.Cog):
                     await self.remove_instance(before.channel.id, 'Não há ninguém no canal. Vou descansar ;)')
 
     @commands.command()
-    async def start(self, ctx, custom_timer: float=20.0):
+    async def start(self, ctx, custom_interval: float=20.0):
            if ctx.author.voice:
                channel_id = ctx.author.voice.channel.id
                if not any(i.channel_id == channel_id for i in self.instances):
                    new_instance = commandInstance(channel_id, ctx)
-                   if custom_timer != 20.0:
-                       new_instance.custom_timer(custom_timer)
+                   if custom_interval > 0 and custom_interval != 20.0:
+                       new_instance.custom_interval(custom_interval)
 
                    self.instances.append(new_instance)   
                else:
