@@ -19,8 +19,9 @@ You can also setup a [virtual environment](https://discordpy.readthedocs.io/en/s
 ## Default bot commands
 You must be connected to a voice channel to run the commands:
 - `!start`
+- `!start 10` you can also pass a custom time interval(minutes) as an argument
 - `!stop`
 
 ## Todo
-- [ ] Custom timer support
+- [x] Custom interval support
 - [ ] Custom prefix support
