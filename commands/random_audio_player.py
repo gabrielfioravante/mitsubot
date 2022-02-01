@@ -57,20 +57,25 @@ class randomAudioPlayer(commands.Cog):
                 if len(before.channel.members) == 0:
                     await self.remove_instance(before.channel.id, 'Não há ninguém no canal. Vou descansar ;)')
 
+    async def custom_interval_parser(self, instance: commandInstance, ctx, custom_interval: float):
+       if custom_interval != 20.0:
+           if custom_interval > 0:
+               instance.custom_interval(custom_interval)
+           else:
+               await ctx.send("Formato de tempo inválido. Utilize número positivos...\n Utilizando intervalo padrão (20 minutos)")
+
     @commands.command()
     async def start(self, ctx, custom_interval: float=20.0):
-           if ctx.author.voice:
-               channel_id = ctx.author.voice.channel.id
-               if not any(i.channel_id == channel_id for i in self.instances):
-                   new_instance = commandInstance(channel_id, ctx)
-                   if custom_interval > 0 and custom_interval != 20.0:
-                       new_instance.custom_interval(custom_interval)
-
-                   self.instances.append(new_instance)   
-               else:
+        if ctx.author.voice:
+            channel_id = ctx.author.voice.channel.id
+            if not any(i.channel_id == channel_id for i in self.instances):
+                new_instance = commandInstance(channel_id, ctx)
+                await self.custom_interval_parser(new_instance, ctx, custom_interval)
+                self.instances.append(new_instance)   
+            else:
                 await ctx.send("Eu já fui iniciado, amigão")
-           else:
-               await ctx.send("Irmão, você tem que estar conectado a algum canal de voz!")
+        else:
+            await ctx.send("Irmão, você tem que estar conectado a algum canal de voz!")
 
     @commands.command()
     async def stop(self, ctx):
