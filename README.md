@@ -8,12 +8,14 @@ A basic Discord bot that plays random audios every N minutes. It reads audio fil
 In order to work with the Discord API and make the bot play audio, you will need:
 - [FFmpeg](https://ffmpeg.org/)
 - [Discord Bot account](https://discordpy.readthedocs.io/en/stable/discord.html)
+- Create a `.env` file with your bot's token. You can find an example at `sample.env`
 
 ```sh
-# Python setup
+# Python setup:
 python3 -m pip install -U discord.py[voice] python-dotenv # Unix
 py -3 -m pip install -U discord.py[voice] python-dotenv # Windows
 ```
+
 You can also setup a [virtual environment](https://discordpy.readthedocs.io/en/stable/intro.html#virtual-environments)
 
 ## Default bot commands
