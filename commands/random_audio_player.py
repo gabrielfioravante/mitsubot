@@ -3,10 +3,11 @@ from time import sleep
 from discord.ext import commands, tasks
 
 class commandInstance:
-    def __init__(self, channel_id, ctx):
+    def __init__(self, channel_id, ctx, channel):
         self.channel_id = channel_id
         self.ctx = ctx
         self.audios = os.listdir('./audio')
+        self.channel = channel
         self.play.start()
 
     def __select_audio(self):
@@ -24,7 +25,7 @@ class commandInstance:
         audio_file = self.__select_audio()
         source = discord.PCMVolumeTransformer(discord.FFmpegPCMAudio('./audio/' + audio_file))            
         if self.ctx.voice_client is None:
-           await self.ctx.author.voice.channel.connect()
+           await self.channel.connect()
            self.ctx.voice_client.play(source, after=lambda e: print('Player error: %s' % e) if e else None)
 
            while self.ctx.voice_client.is_playing():
@@ -68,8 +69,9 @@ class randomAudioPlayer(commands.Cog):
     async def start(self, ctx, custom_interval: float=20.0):
         if ctx.author.voice:
             channel_id = ctx.author.voice.channel.id
+            channel = ctx.author.voice.channel
             if not any(i.channel_id == channel_id for i in self.instances):
-                new_instance = commandInstance(channel_id, ctx)
+                new_instance = commandInstance(channel_id, ctx, channel)
                 await self.custom_interval_parser(new_instance, ctx, custom_interval)
                 self.instances.append(new_instance)   
             else:
