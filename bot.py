@@ -1,9 +1,9 @@
 from commands.random_audio_player import randomAudioPlayer
 from discord.ext import commands
-from dotenv import load_dotenv, find_dotenv
-import os, discord
+from dotenv import dotenv_values
+import discord
 
-load_dotenv(find_dotenv())
+config = dotenv_values(".env")
 
 intents = discord.Intents.default()
 intents.members = True
@@ -15,4 +15,4 @@ async def on_ready():
     print('------')
 
 bot.add_cog(randomAudioPlayer(bot))
-bot.run(os.environ.get('TOKEN'))
+bot.run(config["TOKEN"])
