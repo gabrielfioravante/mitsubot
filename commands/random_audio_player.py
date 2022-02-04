@@ -36,7 +36,7 @@ class commandInstance:
            await self.channel.connect()
            self.ctx.voice_client.play(source, after=self.after_play)
 
-    def custom_interval(self, custom_interval: float):
+    def set_custom_interval(self, custom_interval: float):
         self.play.change_interval(minutes=custom_interval)
 
     async def cog_unload(self, custom_message):
@@ -65,7 +65,7 @@ class randomAudioPlayer(commands.Cog):
     async def custom_interval_parser(self, instance: commandInstance, ctx, custom_interval: float):
        if custom_interval != 20.0:
            if custom_interval > 0:
-               instance.custom_interval(custom_interval)
+               instance.set_custom_interval(custom_interval)
            else:
                await ctx.send("Formato de tempo inválido. Utilize número positivos...\n Utilizando intervalo padrão (20 minutos)")
 
