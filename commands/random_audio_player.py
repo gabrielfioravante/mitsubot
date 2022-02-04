@@ -1,5 +1,5 @@
-import discord, os, random
-from time import sleep
+import discord, os, random, asyncio
+# from time import sleep
 from discord.ext import commands, tasks
 
 class commandInstance:
@@ -20,17 +20,21 @@ class commandInstance:
 
         return selected_audio
 
+    def after_play(self, error):
+        coro = self.ctx.voice_client.disconnect()
+        fut = asyncio.run_coroutine_threadsafe(coro, self.play.loop)
+        try:
+            fut.result()
+        except:
+            print("Player error: " + error)
+
     @tasks.loop(minutes= 20.0)
     async def play(self):
         audio_file = self.__select_audio()
         source = discord.PCMVolumeTransformer(discord.FFmpegPCMAudio('./audio/' + audio_file))            
         if self.ctx.voice_client is None:
            await self.channel.connect()
-           self.ctx.voice_client.play(source, after=lambda e: print('Player error: %s' % e) if e else None)
-
-           while self.ctx.voice_client.is_playing():
-             sleep(1)
-           await self.ctx.voice_client.disconnect()
+           self.ctx.voice_client.play(source, after=self.after_play)
 
     def custom_interval(self, custom_interval: float):
         self.play.change_interval(minutes=custom_interval)
