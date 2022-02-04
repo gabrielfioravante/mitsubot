@@ -24,6 +24,8 @@ You must be connected to a voice channel to run the commands:
 - `!start 10` you can also pass a custom time interval(minutes) as an argument
 - `!stop`
 
+Instead of using a prefix (e.g.: "!start"), you can mention the bot (e.g.: "@Mitsubot start").
+
 ## Todo
 - [x] Custom interval support
 - [ ] Custom prefix support
