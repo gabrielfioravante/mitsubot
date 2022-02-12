@@ -1,5 +1,4 @@
 import discord, os, random, asyncio
-# from time import sleep
 from discord.ext import commands, tasks
 
 class playerRoutine:
