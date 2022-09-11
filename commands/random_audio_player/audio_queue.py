@@ -9,7 +9,7 @@ class AudioQueue:
         self.Q.append(audio_file)
         
     def dequeue(self): 
-        if self.Q:
+        if len(self.Q) > 1:
             self.Q.pop(0)
         else:
             self.fill()
